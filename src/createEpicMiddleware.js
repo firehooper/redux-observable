@@ -10,7 +10,7 @@ export function createEpicMiddleware(options = {}) {
   // we don't want our internal queuing mechanism to be on the same queue as any
   // other RxJS code outside of redux-observable internals.
   const QueueScheduler = queueScheduler.constructor;
-  const uniqueQueueScheduler = new QueueScheduler(queueScheduler.SchedulerAction);
+  const uniqueQueueScheduler = new QueueScheduler(queueScheduler.schedulerActionCtor || queueScheduler.SchedulerAction);
 
   if (process.env.NODE_ENV !== 'production' && typeof options === 'function') {
     throw new TypeError('Providing your root Epic to `createEpicMiddleware(rootEpic)` is no longer supported, instead use `epicMiddleware.run(rootEpic)`\n\nLearn more: https://redux-observable.js.org/MIGRATION.html#setting-up-the-middleware');
